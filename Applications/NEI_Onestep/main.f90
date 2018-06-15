@@ -112,7 +112,7 @@ open(12, file='test_onestep_ei.dat', form='unformatted')
   write(12)conce_ei
   write(12)ntime
   do itime = 1, ntime
-    time = 10.0**(itime*dt0)
+    time = (itime*dt0)
     call sub_solve_ionic_onestep(nelem, natom_list, i_chemi_eigen, &
             te_arr, ne_arr, time, &
             conce_ini, conce_nei)
