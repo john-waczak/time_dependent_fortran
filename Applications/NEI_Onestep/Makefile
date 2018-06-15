@@ -1,5 +1,5 @@
 # The compiler
-FC = pgfortran
+FC = gfortran
 # flags for debugging or for maximum performance, comment as necessary
 #FCFLAGS = -g -fbounds-check
 FCFLAGS = -O2

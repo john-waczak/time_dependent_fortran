@@ -65,9 +65,9 @@ program main
   !----------------------------------------------------------------------------
   ! Example (1): Define temperature, density.
   !----------------------------------------------------------------------------
-  te_start = 1.0e6       ! (K) used to set the initial charge state 
+  te_start = 1000000.0	! (K) used to set the initial charge state
   te_end   = 10.0**6.8   ! (K)
-  rhone = 1.0e7          ! (cm^-3)
+  rhone = 10000000.0	! (cm^-3)
 
   !
   ! (1-1) Set initial (and final) condition: equilibrium ionization states
@@ -106,7 +106,7 @@ program main
   !
   ! (1-2) Enter the main loop for different time
   !
-  open(12, file='test_onestep_ei.dat', form='unformatted')
+open(12, file='test_onestep_ei.dat', form='unformatted')
   write(12)te_start, te_end, rhone
   write(12)conce_ini
   write(12)conce_ei

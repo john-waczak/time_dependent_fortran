@@ -2,4 +2,4 @@
 2
 2, 26
 "Set the path of tables: "
-'/Users/chshen/Works/Project/ionization/time_dependent_fortran/eigendata/chianti_8_07/'
+'/data/khnum/REU2018/jwaczak/time_dependent_fortran/eigendata/chianti_8_07/'
