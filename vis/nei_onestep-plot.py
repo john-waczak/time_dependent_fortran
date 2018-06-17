@@ -35,6 +35,7 @@ print()
 
 # Read number of cases
 ntime = f.read_ints()
+print(f"dt={dt}")
 
 # Set pdf pages
 with PdfPages('./nei_onestep-plot.pdf') as pdf:
