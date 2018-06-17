@@ -23,23 +23,28 @@ import numpy as np
 parser = argparse.ArgumentParser()
 
 # starting temperature
-parser.add_argument("-s", "--start", type = np.float64, action = "store", default = 10.0**6, help = "Starting temperature for simulation"  )
+parser.add_argument("--tempStart", type = np.float64, action = "store", default = 10.0**6, help = "Starting temperature for simulation")
 
 # final temperature
-parser.add_argument("-e", "--end", type = np.float64, action = "store", default = 10.0**6.8, help = "ending temperature for simulation")
+parser.add_argument("--tempEnd", type = np.float64, action = "store", default = 10.0**6.8, help = "ending temperature for simulation")
 
 # density
-parser.add_argument("-r", "--rho", type = np.float64, action = "store", default = 10.0**7.0, help= "starting density for simulation") 
+parser.add_argument("--rho", type = np.float64, action = "store", default = 10.0**7.0, help= "starting density for simulation") 
 
 # num elements
-parser.add_argument("-n", "--num", type = int, action = "store", default = 2, help = "number of total elements")
+parser.add_argument("--num", type = int, action = "store", default = 2, help = "number of total elements")
 
 # atomic indices
-parser.add_argument("-i", "--indices", type = str, action = "store", default = "2, 26", help = "atomic indices for desired elements. Separate by single comma. Ex: 2, 26 ")
+parser.add_argument("--indices", type = str, action = "store", default = "2, 26", help = "atomic indices for desired elements. Separate by single comma. Ex: 2, 26 ")
 
 # output file name
-parser.add_argument("-f", "--filename", type=str, action = "store", default = "test_onestep_ei.dat")
+parser.add_argument("--filename", type=str, action = "store", default = "test_onestep_ei.dat", help="Specify the filename for data file output")
 
+# number of time steps
+parser.add_argument("--ntime", type=int, action = "store", default = 10, help="Specify the number of time steps")
+
+# dt
+parser.add_argument("--dt", type=np.float64, action="store", default=0.75, help="Specify the size of each time step")
 
 args = parser.parse_args()
 
@@ -59,13 +64,18 @@ file_lines = mainFile.read().splitlines()
 # find parameters and change them 
 for i in range(len(file_lines)):
     if ("te_start = ") in file_lines[i]:
-        file_lines[i] = "  te_start = {}\t! (K) used to set the initial charge state".format(args.start)
+        file_lines[i] = "  te_start = {}\t! (K) used to set the initial charge state".format(args.tempStart)
     elif ("te_end = ") in file_lines[i]:
-        file_lines[i] = "  te_end = {}\t! (K)".format(args.end)
+        file_lines[i] = "  te_end = {}\t! (K)".format(args.tempEnd)
     elif ("rhone = ") in file_lines[i]:
         file_lines[i] = "  rhone = {}\t! (cm^-3)".format(args.rho)
     elif ("open(12, file=") in file_lines[i]:
         file_lines[i] = "open(12, file='{}', form=\'unformatted\')".format(args.filename)
+    elif ("integer, parameter:: ntime=") in file_lines[i]:
+        file_lines[i] = "integer, parameter:: ntime={}".format(args.ntime)
+    elif ("real*8, parameter:: dt0 =") in file_lines[i]:
+        file_lines[i] = "real*8, parameter:: dt0 = {}".format(str(args.dt))
+
 mainFile.close() 
 
 # re open the file in write mode and update the file 
@@ -81,7 +91,7 @@ file_lines = inputFile.read().splitlines()
 
 # the lines we need to change are at index 1 and 2.
 file_lines[1] = str(args.num)
-file_lines[2] = args.indices 
+file_lines[2] = args.indices
 file_lines[4] = "\'/data/khnum/REU2018/jwaczak/time_dependent_fortran/eigendata/chianti_8_07/\'"
 inputFile.close()
 
