@@ -29,13 +29,9 @@ except:
 # Read the ion fractions at the beginning and end time
 fraction_sta_ei = f.read_reals(dtype=np.float64).reshape(30, 30)
 fraction_end_ei = f.read_reals(dtype=np.float64).reshape(30, 30)
-print(fraction_sta_ei[1, :])
-print(fraction_sta_ei[25, :])
-print()
 
 # Read number of cases
 ntime = f.read_ints()
-print(f"dt={dt}")
 
 # Set pdf pages
 with PdfPages('./nei_onestep-plot.pdf') as pdf:
@@ -60,7 +56,6 @@ with PdfPages('./nei_onestep-plot.pdf') as pdf:
 
   for itime in range(ntime[0]):
     dt = f.read_reals(dtype=np.float64)
-    print(f"dt={dt}")
     fraction_nei = f.read_reals().reshape(30, 30)
     label_str = 'NEI t={:.1f}s'.format(dt[0])
     plt.plot(charge_state, fraction_nei[natom-1, 0:nstate], ls='--', 
