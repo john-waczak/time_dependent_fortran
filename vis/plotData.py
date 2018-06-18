@@ -75,10 +75,13 @@ if (args.graph is True):
 
     #plot the first and last one in bold
     plt.plot(charge_states, fractions[0][args.atomicNumber-1, 0:args.atomicNumber+1], c='b', label="T_sta")
-    plt.plot(charge_states, fractions[-1][args.atomicNumber-1, 0:args.atomicNumber+1],c='r', label="T_end")
 
     for i in range(1, len(fractions)-1):
         plt.plot(charge_states, fractions[i][args.atomicNumber-1, 0:args.atomicNumber+1], c='k', alpha=0.4)
+
+
+    # must plot last one last so we can see the red. 
+    plt.plot(charge_states, fractions[-1][args.atomicNumber-1, 0:args.atomicNumber+1],c='r', label="T_end")
     plt.legend()
     if (args.interactive is True):
         plt.show()
@@ -92,23 +95,27 @@ if (args.movie is True):
     print(os.getcwd())
 
 
-    for i in range(len(fractions)):
+    for i in range(len(fractions)-1):
         print(i) 
         plt.figure()
+        ax = plt.gca() 
         plt.yscale("log")
         plt.xlabel("Charge states")
         plt.ylabel("Ion fractions for element {}".format(args.atomicNumber))
-        plt.ylim(1.0e-5, 1.0) 
+        plt.ylim(1.0e-5, 1.0)
+        textstr = 'time: {} [s]'.format(times[i])
 
         charge_states = np.linspace(1, args.atomicNumber+1, args.atomicNumber+1)
 
         plt.plot(charge_states, fractions[i][args.atomicNumber-1, 0:args.atomicNumber+1], c='k')
-
+        ax.text(0.025, 0.95, textstr, transform=ax.transAxes)
         plt.savefig(args.filename+"-{0:04d}".format(i)+".png")
         plt.close()
 
-    os.system("ffmpeg -i {}-%-4d.png ../{}.mp4".format(args.filename, args.filename)) 
+    os.system("ffmpeg -i {}-%04d.png ../{}.mp4".format(args.filename, args.filename)) 
     os.system("rm *.png")
+    os.chdir("..")
+    os.rmdir(args.filename)
 
 
 
