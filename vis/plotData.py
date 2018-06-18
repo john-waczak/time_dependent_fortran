@@ -108,6 +108,7 @@ if (args.movie is True):
         charge_states = np.linspace(1, args.atomicNumber+1, args.atomicNumber+1)
 
         plt.plot(charge_states, fractions[i][args.atomicNumber-1, 0:args.atomicNumber+1], c='k')
+        plt.plot(charge_states, fractions[i][args.atomicNumber-1, 0:args.atomicNumber+1], 'o', c='k')
         ax.text(0.025, 0.95, textstr, transform=ax.transAxes)
         plt.savefig(args.filename+"-{0:04d}".format(i)+".png")
         plt.close()
