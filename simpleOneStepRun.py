@@ -23,13 +23,13 @@ import numpy as np
 parser = argparse.ArgumentParser()
 
 # starting temperature
-parser.add_argument("--tempStart", type = np.float64, action = "store", default = 10.0**6, help = "Starting temperature for simulation")
+parser.add_argument("--tempStart", type = str, action = "store", default = "10.0**6", help = "Starting temperature for simulation")
 
 # final temperature
 parser.add_argument("--tempEnd", type = np.float64, action = "store", default = 10.0**6.8, help = "ending temperature for simulation")
 
 # density
-parser.add_argument("--rho", type = np.float64, action = "store", default = 10.0**7.0, help= "starting density for simulation") 
+parser.add_argument("--rho", type = str, action = "store", default = "10.0**7.0", help= "starting density for simulation") 
 
 # num elements
 parser.add_argument("--num", type = int, action = "store", default = 2, help = "number of total elements")
