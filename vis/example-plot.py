@@ -41,16 +41,21 @@ with PdfPages('./nei_example-plot.pdf') as pdf:
     plt.ylabel("Ion Fractions")
     
     for ielem in range(30):
+      print(ielem)
       natom = ielem + 1
       nstate = natom + 1
       nei_current = nei_conce[ielem]
       ei_current = ei_conce[ielem]
+      if(ielem == 29):
+        charge_state=np.linspace(1, nstate-1, nstate-1)
+      else:
+        charge_state = np.linspace(1, nstate, nstate)
       if (np.sum(ei_current) != 0):
         print(f"natom={natom}, ei={ei_current[0:nstate]}")
-        charge_state = np.linspace(1, nstate, nstate)
+        print(np.shape(charge_state), np.shape(ei_current[0:nstate]))
         plt.plot(charge_state, ei_current[0:nstate], ls='dotted')
         natom_str = "Natom={:d}".format(natom)
         plt.plot(charge_state, nei_current[0:nstate], label=natom_str)
     plt.legend()
     pdf.savefig()  # saves the current figure into a pdf page
-    plt.close()
+    plt.close() 
