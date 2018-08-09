@@ -35,8 +35,8 @@ program main
 
   ! Test output
   integer:: i
-  integer, parameter:: ntime=10
-  real*8, parameter:: dt0 = 0.75
+integer, parameter:: ntime=14
+real*8, parameter:: dt0 = 12.0
 
   !
   ! (1) Read input parameters
@@ -65,14 +65,14 @@ program main
   !----------------------------------------------------------------------------
   ! Example (1): Define temperature, density.
   !----------------------------------------------------------------------------
-  te_start = 1000000.0	! (K) used to set the initial charge state
-  te_end   = 10.0**6.8   ! (K)
-  rhone = 10000000.0	! (cm^-3)
+  te_start = 1500000.0	! (K) used to set the initial charge state
+  te_end = 5000000.0	! (K)
+  rhone = 100000000	! (cm^-3)
 
   !
   ! (1-1) Set initial (and final) condition: equilibrium ionization states
   !
-  te_arr(1) = te_end   ! (K)
+  te_arr(1) = te_start   ! (K)
   te_arr(2) = te_end     ! (K)
   ne_arr(1) = rhone      ! (cm^-3)
   ne_arr(2) = rhone      ! (cm^-3)
@@ -106,7 +106,7 @@ program main
   !
   ! (1-2) Enter the main loop for different time
   !
-open(12, file='test_onestep_ei.dat', form='unformatted')
+open(12, file='t0--1.50E+06__t1--5.00E+06__n--1.00E+08.dat', form='unformatted')
   write(12)te_start, te_end, rhone
   write(12)conce_ini
   write(12)conce_ei

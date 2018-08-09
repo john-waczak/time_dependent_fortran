@@ -1,5 +1,5 @@
 "Set elements for calculation:"
-2
-2, 26
+13
+2, 6, 7, 8, 10, 12, 13, 14, 16, 18, 20, 26, 28
 "Set the path of tables: "
 '/data/khnum/REU2018/jwaczak/time_dependent_fortran/eigendata/chianti_8_07/'
